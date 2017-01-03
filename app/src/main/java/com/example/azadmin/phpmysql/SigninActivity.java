@@ -1,7 +1,10 @@
 package com.example.azadmin.phpmysql;
 
+import android.app.Notification;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.widget.TextView;
 
 import org.apache.http.HttpResponse;
@@ -25,6 +28,7 @@ public class SigninActivity extends AsyncTask<String, Integer, String> {
     private TextView statusField,roleField;
     private Context context;
     private int byGetOrPost = 0;
+    private Notification messageBuilder;
 
     //flag 0 means get and 1 means post.(By default it is get.)
     public SigninActivity(Context context,TextView statusField,TextView roleField,int flag) {
@@ -34,20 +38,22 @@ public class SigninActivity extends AsyncTask<String, Integer, String> {
         byGetOrPost = flag;
     }
 
-//    @Override
-//    protected void onPreExecute() {
-//        super.onPreExecute();
-//   }
-
+    @Override
+    protected void onPreExecute() {
+        Log.d("SigninActivity debug", "doPreExecute is executed");
+        super.onPreExecute();
+   }
 
     @Override
     protected String doInBackground(String... arg0) {
+ //       messageBuilder = (Notification) MainActivity
+        Log.d("SigninActivity debug", "doInBackground is executed");
         if(byGetOrPost == 0){ //means by Get Method
 
             try{
                 String username = (String)arg0[0];
                 String password = (String)arg0[1];
-                String link = "http://192.168.0.164/login.php?username="+username+"&password="+password;
+                String link = "http://192.168.1.40/login.php?username="+username+"&password="+password;
 
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();
@@ -63,7 +69,9 @@ public class SigninActivity extends AsyncTask<String, Integer, String> {
                 while ((line = in.readLine()) != null) {
                     sb.append(line);
                     break;
+
                 }
+
 
                 in.close();
                 return sb.toString();
@@ -75,7 +83,7 @@ public class SigninActivity extends AsyncTask<String, Integer, String> {
                 String username = (String)arg0[0];
                 String password = (String)arg0[1];
 
-                String link="http://192.168.0.164/loginpost.php";
+                String link="http://192.168.1.40/loginpost.php";
                 String data  = URLEncoder.encode("username", "UTF-8") + "=" +
                         URLEncoder.encode(username, "UTF-8");
                 data += "&" + URLEncoder.encode("password", "UTF-8") + "=" +
