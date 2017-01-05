@@ -53,7 +53,8 @@ public class SigninActivity extends AsyncTask<String, Integer, String> {
             try{
                 String username = (String)arg0[0];
                 String password = (String)arg0[1];
-                String link = "http://192.168.1.40/login.php?username="+username+"&password="+password;
+                String serverIP = (String)arg0[2];
+                String link = "http://"+serverIP+"/login.php?username="+username+"&password="+password;
 
                 URL url = new URL(link);
                 HttpClient client = new DefaultHttpClient();
@@ -72,7 +73,6 @@ public class SigninActivity extends AsyncTask<String, Integer, String> {
 
                 }
 
-
                 in.close();
                 return sb.toString();
             } catch(Exception e){
@@ -82,8 +82,9 @@ public class SigninActivity extends AsyncTask<String, Integer, String> {
             try{
                 String username = (String)arg0[0];
                 String password = (String)arg0[1];
+                String serverIP = (String)arg0[2];
 
-                String link="http://192.168.1.40/loginpost.php";
+                String link="http://"+serverIP+"/loginpost.php";
                 String data  = URLEncoder.encode("username", "UTF-8") + "=" +
                         URLEncoder.encode(username, "UTF-8");
                 data += "&" + URLEncoder.encode("password", "UTF-8") + "=" +

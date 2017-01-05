@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/editText1"
         android:layout_below="@+id/editText1"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:inputType="textPassword" >
     </EditText>
@@ -107,6 +107,7 @@
         android:layout_alignBaseline="@+id/button2"
         android:layout_alignBottom="@+id/button2"
         android:layout_alignLeft="@+id/textView2"
+        android:layout_marginLeft="20dp"
         android:onClick="login"
         android:text="@string/LoginGet" />
 
@@ -146,10 +147,11 @@
         android:layout_height="wrap_content"
         android:onClick="loginPost"
         android:text="@string/LoginPost"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/editTextServerIP"
         android:layout_toRightOf="@+id/textView6"
         android:layout_toEndOf="@+id/textView6"
-        android:layout_marginTop="41dp" />
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"/>
 
     <TextView
         android:id="@+id/textView8"
@@ -162,17 +164,17 @@
         android:layout_marginTop="30dp" />
 
     <Button
-        android:text="Enable Regular Check"
+        android:text="@string/enableRegularCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button3"
         android:layout_marginTop="19dp"
         android:layout_below="@+id/button1"
-        android:layout_alignRight="@+id/textView3"
-        android:layout_alignEnd="@+id/textView3" />
+        android:layout_centerHorizontal="true"
+        />
 
     <TextView
-        android:text="Server IP"
+        android:text="@string/ServerIP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editText2"
@@ -184,10 +186,12 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="phone"
         android:ems="10"
         android:id="@+id/editTextServerIP"
-        android:layout_below="@id/editText2"
-        android:layout_alignRight="@+id/editText1" />
+        android:layout_marginTop="11dp"
+        android:layout_below="@+id/editText2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

@@ -18,9 +18,20 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
     private EditText usernameField,passwordField;
@@ -29,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private Notification mBuilder;
     private CountDownTimer countDownTimer;
     private NotificationManager notificationManager;
+    private StringBuffer sb = new StringBuffer("");
 
     public Notification getMessageBuilder(){
         return mBuilder;
@@ -58,8 +70,10 @@ public class MainActivity extends AppCompatActivity {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
+                        .setAutoCancel(true)
                         .setSmallIcon(R.drawable.app_icon);
 //                        .setContentTitle("mydb armed")
+//                        .setContentText("Info : periodic check is activated!");
 //                        .setContentText("Info : periodic check is activated!");
 
         if (notificationID == 0) {
@@ -99,8 +113,20 @@ public class MainActivity extends AppCompatActivity {
     public void login(View view){
         String username = usernameField.getText().toString();
         String password = passwordField.getText().toString();
+        String serverIP = serverIPField.getText().toString();
+
         method.setText("Get Method");
-        new SigninActivity(this,status,role,0).execute(username,password);
+/*
+ * try to hide the virtual keyboard
+ */
+        View buttonView = this.getCurrentFocus();
+        if (buttonView != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(buttonView.getWindowToken(), 0);
+        }
+
+        new SigninActivity(this,status,role,0).execute(username,password, serverIP);
+
         startTimer();
         countDownTimer.start();
 
@@ -111,16 +137,30 @@ public class MainActivity extends AppCompatActivity {
     public void loginPost(View view){
         String username = usernameField.getText().toString();
         String password = passwordField.getText().toString();
+        String serverIP = serverIPField.getText().toString();
+
         method.setText("Post Method");
-        new SigninActivity(this,status,role,1).execute(username,password);
+ /*
+ * try to hide the virtual keyboard
+ */
+        View buttonView = this.getCurrentFocus();
+        if (buttonView != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(buttonView.getWindowToken(), 0);
+        }
+
+        new SigninActivity(this,status,role,1).execute(username,password, serverIP);
+
         startTimer();
         countDownTimer.start();
     }
-
+/*
+    An example of a CountDownTimer
+ */
     private void startTimer(){
         Log.d ("startTimer debug", "startTimer is invoked");
         timerValue.setText("3");
-        countDownTimer = new CountDownTimer(10*1000, 1000){
+        countDownTimer = new CountDownTimer(5*1000, 1000){
             @Override
             public void onTick(long millisUntilFinished) {
                 timerValue.setText(""+millisUntilFinished / 1000);
@@ -128,21 +168,45 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                String username = usernameField.getText().toString();
-                String password = passwordField.getText().toString();
+                final int alertDuration = 5;
 
                 Toast toast = Toast.makeText(getApplicationContext(), "Timer is reset", Toast.LENGTH_SHORT);
                 toast.show();
 
+                String strAlertDuration, link;
+                strAlertDuration = String.valueOf(alertDuration);
+                try{
+                    Log.d("RegularCheck debug", "Periodic check in onFinish of a CountDown Timer");
+                    link = "http://192.168.0.164/check_outstanding_application.php?alertduration="+strAlertDuration;
+                    URL url = new URL(link);
+                    HttpClient client = new DefaultHttpClient();
+                    HttpGet request = new HttpGet();
+                    request.setURI(new URI(link));
+                    HttpResponse response = client.execute(request);
+                    BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                    String line = "";
+
+                    while ((line = in.readLine()) != null){
+                        sb.append(line);
+                        break;
+                    }
+
+                    in.close();
+//                    return sb.toString();
+
+                } catch (Exception e) {
+//                    return new String ("Exception: " + e.getMessage());
+                    sb.append("Exception"+e.getMessage());
+
+                }
+
                 timerValue.setText("Timer done! Reset Timer");
                 countDownTimer.start();
-                new SigninActivity(MainActivity.this,status,role,0).execute(username,password);
+
 
 //                new RegularCheck(MainActivity.this, serverIPField).execute();
 
             }
-
-
         };
     }
 
