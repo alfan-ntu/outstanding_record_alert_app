@@ -14,12 +14,13 @@
     <string name="LoginStatus">登錄狀態</string>
     <string name="LoginRole">使用者身分</string>
     <string name="Status">未登入</string>
-    <string name="Role">Not assigned</string>
+    <string name="Role">未指定</string>
     <string name="regularCheckPeriod">定檢週期</string>
     <string name="Choose">Choose Method</string>
     <string name="TimeValue">下次檢查時間</string>
-    <string name="InitTimeValue">Init Time</string>
+    <string name="InitTimeValue">未啟動</string>
     <string name="loginButtonText">使用者登入</string>
+    <string name="logoutButtonText">使用者登出</string>
 
     <string name="adminRoleDisplay">管理者</string>
     <string name="adminRoleDB">administrator</string>
@@ -27,5 +28,7 @@
     <string name="userRoleDB">user</string>
     <string name="legalLogin">合法登入</string>
     <string name="illegalLogin">不合法登入</string>
+
+    <string name="outstandingRecordLabel">異常資料筆數</string>
 
 </resources>

@@ -33,8 +33,8 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity {
     private EditText usernameField,passwordField;
     private EditText serverIPField;
-    private TextView status,role,timerValue,regularCheckValue;
-    private Button manualCheckButton, regularCheckButton;
+    private TextView status,role,timerValue,regularCheckValue, outstandingRecordNumberTextView;
+    private Button manualCheckButton, regularCheckButton, loginButton;
     private Notification mBuilder;
     private CountDownTimer countDownTimer;
     private NotificationManager notificationManager;
@@ -53,14 +53,17 @@ public class MainActivity extends AppCompatActivity {
         passwordField = (EditText)findViewById(R.id.editText2);
         serverIPField = (EditText)findViewById(R.id.editTextServerIP);
 
-        status = (TextView)findViewById(R.id.textView6);
-        role = (TextView)findViewById(R.id.textView7);
+        status = (TextView)findViewById(R.id.textViewLoginStatus);
+        role = (TextView)findViewById(R.id.textViewUserRole);
         regularCheckValue = (TextView)findViewById(R.id.textViewRegularCheckValue);
         regularCheckValue.setText("10 sec");
         timerValue = (TextView)findViewById(R.id.textView10);
+        outstandingRecordNumberTextView = (TextView)findViewById(R.id.textViewOutstandingRecordNumber);
+        outstandingRecordNumberTextView.setText("0");
 
         manualCheckButton = (Button)findViewById(R.id.buttonManualCheck);
         regularCheckButton = (Button)findViewById(R.id.buttonRegularCheck);
+        loginButton = (Button)findViewById(R.id.buttonLogin);
 
         addNotification(0);
     }
@@ -126,8 +129,17 @@ public class MainActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(buttonView.getWindowToken(), 0);
         }
 
-        new SigninActivity(this,status,role,manualCheckButton,regularCheckButton,0).execute(username,password, serverIP);
-
+        if(manualCheckButton.isEnabled()) {
+            manualCheckButton.setEnabled(false);
+            regularCheckButton.setEnabled(false);
+            loginButton.setText(R.string.loginButtonText);
+            status.setText(R.string.Status);
+            role.setText(R.string.Role);
+            cancelTimer();
+            timerValue.setText(R.string.InitTimeValue);
+        } else {
+            new SigninActivity(this, status, role, loginButton, manualCheckButton, regularCheckButton, 0).execute(username, password, serverIP);
+        }
         addNotification(1);
 
     }
@@ -136,21 +148,11 @@ public class MainActivity extends AppCompatActivity {
  * manualCheck to query database for outstanding application data manually
  */
     public void manualCheck(View view) {
-        String username = usernameField.getText().toString();
-        String password = passwordField.getText().toString();
         String serverIP = serverIPField.getText().toString();
 
- /*
- * try to hide the virtual keyboard
- */
-        View buttonView = this.getCurrentFocus();
-        if (buttonView != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(buttonView.getWindowToken(), 0);
-        }
+        new manualCheckActivity(this, outstandingRecordNumberTextView).execute(serverIP, String.valueOf(5));
 
-        new SigninActivity(this, status, role, manualCheckButton, regularCheckButton, 1).execute(username, password, serverIP);
-
+        return;
     }
 
     public void regularCheck(View view){

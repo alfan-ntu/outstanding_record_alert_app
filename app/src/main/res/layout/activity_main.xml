@@ -53,10 +53,11 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView6"
+        android:layout_below="@+id/textViewLoginStatus"
         android:layout_marginTop="20dp"
         android:layout_toLeftOf="@+id/editText1"
-        android:text="@string/LoginRole" />
+        android:text="@string/LoginRole"
+        android:textSize="@dimen/textView_font_size" />
 
     <TextView
         android:id="@+id/textView4"
@@ -64,40 +65,31 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textViewRegularCheckLabel"
         android:layout_below="@+id/buttonRegularCheck"
-        android:layout_marginTop="30dp"
-        android:text="@string/LoginStatus" />
+        android:layout_marginTop="20dp"
+        android:text="@string/LoginStatus"
+        android:textSize="@dimen/textView_font_size" />
 
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/textViewLoginStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/textView4"
         android:text="@string/Status"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="10sp"
+        android:textSize="@dimen/textView_font_size"
         android:layout_centerHorizontal="true"
         android:layout_toRightOf="@+id/textView4"
-        android:layout_marginLeft="60dp" />
+        android:layout_marginLeft="80dp" />
 
     <TextView
         android:id="@+id/textViewRegularCheckValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textViewRegularCheckLabel"
-        android:layout_alignLeft="@+id/textView6"
+        android:layout_alignLeft="@+id/textViewLoginStatus"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="10sp" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/textViewServerIP"
-        android:layout_marginTop="40dp"
-        android:onClick="login"
-        android:text= "@string/loginButtonText"/>
+        android:textSize="@dimen/textView_font_size" />
 
     <TextView
         android:id="@+id/textView2"
@@ -116,7 +108,8 @@
         android:layout_alignLeft="@+id/textView5"
         android:layout_alignStart="@+id/textView5"
         android:layout_marginTop="20dp"
-        android:id="@+id/textView11" />
+        android:id="@+id/textView11"
+        android:textSize="@dimen/textView_font_size" />
 
     <TextView
         android:text="@string/InitTimeValue"
@@ -125,21 +118,9 @@
         android:id="@+id/textView10"
         android:layout_alignBaseline="@+id/textView11"
         android:layout_alignBottom="@+id/textView11"
-        android:layout_alignLeft="@+id/textView7"
-        android:layout_alignStart="@+id/textView7"
-        android:textSize="10sp" />
-
-    <Button
-        android:id="@+id/buttonManualCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="manualCheck"
-        android:text="@string/LoginPost"
-        android:layout_below="@+id/button1"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="40dp"
-        android:enabled="false" />
+        android:layout_alignLeft="@+id/textViewUserRole"
+        android:layout_alignStart="@+id/textViewUserRole"
+        android:textSize="@dimen/textView_font_size" />
 
     <Button
         android:id="@+id/buttonRegularCheck"
@@ -147,9 +128,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="19dp"
-        android:layout_below="@+id/button1"
+        android:layout_below="@+id/buttonLogin"
         android:layout_toRightOf="@+id/buttonManualCheck"
-        android:layout_marginLeft ="80dp"
+        android:layout_marginLeft ="75dp"
         android:enabled="false"
         android:onClick="regularCheck" />
 
@@ -169,7 +150,7 @@
         android:inputType="phone"
         android:ems="10"
         android:id="@+id/editTextServerIP"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/editText2"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
@@ -182,17 +163,60 @@
         android:layout_below="@+id/textView5"
         android:layout_alignLeft="@+id/textView5"
         android:layout_alignStart="@+id/textView5"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:textSize="@dimen/textView_font_size" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/textViewUserRole"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Role"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="10sp"
+        android:textSize="@dimen/textView_font_size"
         android:layout_alignBottom="@+id/textView5"
-        android:layout_alignLeft="@+id/textView6"
-        android:layout_alignStart="@+id/textView6" />
+        android:layout_alignLeft="@+id/textViewLoginStatus"
+        android:layout_alignStart="@+id/textViewLoginStatus" />
+
+    <Button
+        android:id="@+id/buttonManualCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="manualCheck"
+        android:text="@string/LoginPost"
+        android:enabled="false"
+        android:layout_alignBaseline="@+id/buttonRegularCheck"
+        android:layout_alignBottom="@+id/buttonRegularCheck"
+        android:layout_toRightOf="@+id/textView1"
+        android:layout_toEndOf="@+id/textView1" />
+
+    <Button
+        android:id="@+id/buttonLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="login"
+        android:text= "@string/loginButtonText"
+        android:layout_below="@+id/editTextServerIP"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textViewOutstandingRecordLabel"
+        android:layout_toRightOf="@+id/textViewRegularCheckValue"
+        android:layout_toEndOf="@+id/textViewRegularCheckValue"
+        android:id="@+id/textViewOutstandingRecordNumber"
+        android:textSize="@dimen/textView_font_size" />
+
+    <TextView
+        android:text="@string/outstandingRecordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/textViewOutstandingRecordLabel"
+        android:layout_below="@+id/textView11"
+        android:layout_alignLeft="@+id/textView11"
+        android:layout_alignStart="@+id/textView11"
+        android:textSize="@dimen/textView_font_size" />
 
 </RelativeLayout>

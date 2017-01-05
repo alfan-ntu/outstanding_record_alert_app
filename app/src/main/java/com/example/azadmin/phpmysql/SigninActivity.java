@@ -27,25 +27,26 @@ import java.net.URLEncoder;
 
 public class SigninActivity extends AsyncTask<String, Integer, String> {
     private TextView statusField,roleField;
-    private Button manualCheckButton, regularCheckButton;
+    private Button manualCheckButton, regularCheckButton, loginButton;
     private Context context;
     private int byGetOrPost = 0;
     private Notification messageBuilder;
 
 // flag 0 means get and 1 means post.(By default it is get.)
     public SigninActivity(Context context, TextView statusField, TextView roleField,
-                          Button manualCheckButton, Button regularCheckButton, int flag) {
+                          Button loginButton, Button manualCheckButton, Button regularCheckButton,
+                          int flag) {
         this.context = context;
         this.statusField = statusField;
         this.roleField = roleField;
         this.manualCheckButton = manualCheckButton;
         this.regularCheckButton = regularCheckButton;
+        this.loginButton = loginButton;
         byGetOrPost = flag;
     }
 
     @Override
     protected void onPreExecute() {
-        Log.d("SigninActivity debug", "doPreExecute is executed");
         super.onPreExecute();
    }
 
@@ -54,7 +55,6 @@ public class SigninActivity extends AsyncTask<String, Integer, String> {
  //       messageBuilder = (Notification) MainActivity
         Log.d("SigninActivity debug", "doInBackground is executed");
         if(byGetOrPost == 0){ //means by Get Method
-
             try{
                 String username = (String)arg0[0];
                 String password = (String)arg0[1];
@@ -134,6 +134,7 @@ public class SigninActivity extends AsyncTask<String, Integer, String> {
  */
         String adminRoleString = this.context.getString(R.string.adminRoleDB);
         String userRoleString = this.context.getString(R.string.userRoleDB);
+        String logoutButtonString = this.context.getString(R.string.logoutButtonText);
 
         if (result.equals(adminRoleString)){
             Log.d("SigninActivity", "My role is an administrator");
@@ -141,12 +142,14 @@ public class SigninActivity extends AsyncTask<String, Integer, String> {
             this.roleField.setText(R.string.adminRoleDisplay);
             this.regularCheckButton.setEnabled(true);
             this.manualCheckButton.setEnabled(true);
+            this.loginButton.setText(logoutButtonString);
         } else if (result.equals(userRoleString)){
             Log.d("SigninActivity", "I am a regular user");
             this.statusField.setText(R.string.legalLogin);
             this.roleField.setText(R.string.userRoleDisplay);
             this.regularCheckButton.setEnabled(true);
             this.manualCheckButton.setEnabled(true);
+            this.loginButton.setText(logoutButtonString);
         } else {
             Log.d("SigninActivity", "I am an intruder");
             this.statusField.setText(R.string.Status);
