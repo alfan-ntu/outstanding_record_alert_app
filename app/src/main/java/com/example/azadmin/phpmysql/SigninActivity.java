@@ -2,8 +2,8 @@ package com.example.azadmin.phpmysql;
 
 import android.app.Notification;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.AsyncTask;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -120,8 +120,29 @@ public class SigninActivity extends AsyncTask<String, Integer, String> {
 
     @Override
     protected void onPostExecute(String result){
-        this.statusField.setText("Login Successful");
-        this.roleField.setText(result);
+        handleSigninResult(result);
+    }
+
+    private void handleSigninResult(String result) {
+/*
+ * reference to string resource in the MainActivity context
+ */
+        String adminRoleString = this.context.getString(R.string.adminRoleDB);
+        String userRoleString = this.context.getString(R.string.userRoleDB);
+
+        if (result.equals(adminRoleString)){
+            Log.d("SigninActivity", "My role is an administrator");
+            this.statusField.setText(R.string.legalLogin);
+            this.roleField.setText(R.string.adminRoleDisplay);
+        } else if (result.equals(userRoleString)){
+            Log.d("SigninActivity", "I am a regular user");
+            this.statusField.setText(R.string.legalLogin);
+            this.roleField.setText(R.string.userRoleDisplay);
+        } else {
+            Log.d("SigninActivity", "I am an intruder");
+            this.statusField.setText(R.string.Status);
+            this.roleField.setText(R.string.illegalLogin);
+        }
     }
 
 }

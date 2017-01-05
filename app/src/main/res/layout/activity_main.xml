@@ -109,7 +109,7 @@
         android:layout_alignLeft="@+id/textView2"
         android:layout_marginLeft="20dp"
         android:onClick="login"
-        android:text="@string/LoginGet" />
+        android:text= "@string/loginButtonText"/>
 
     <TextView
         android:id="@+id/textView2"
@@ -148,10 +148,10 @@
         android:onClick="loginPost"
         android:text="@string/LoginPost"
         android:layout_below="@+id/editTextServerIP"
-        android:layout_toRightOf="@+id/textView6"
-        android:layout_toEndOf="@+id/textView6"
+        android:layout_toRightOf="@+id/button1"
+        android:layout_toEndOf="@+id/button1"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="15dp"/>
+        android:layout_marginLeft="120dp"/>
 
     <TextView
         android:id="@+id/textView8"
