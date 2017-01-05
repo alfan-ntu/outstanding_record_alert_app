@@ -15,7 +15,7 @@
     <string name="LoginRole">使用者身分</string>
     <string name="Status">未登入</string>
     <string name="Role">Not assigned</string>
-    <string name="method">Login Method</string>
+    <string name="regularCheckPeriod">定檢週期</string>
     <string name="Choose">Choose Method</string>
     <string name="TimeValue">下次檢查時間</string>
     <string name="InitTimeValue">Init Time</string>

@@ -5,11 +5,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
@@ -17,9 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 //import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +33,8 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity {
     private EditText usernameField,passwordField;
     private EditText serverIPField;
-    private TextView status,role,method, timerValue;
+    private TextView status,role,timerValue,regularCheckValue;
+    private Button manualCheckButton, regularCheckButton;
     private Notification mBuilder;
     private CountDownTimer countDownTimer;
     private NotificationManager notificationManager;
@@ -58,8 +55,12 @@ public class MainActivity extends AppCompatActivity {
 
         status = (TextView)findViewById(R.id.textView6);
         role = (TextView)findViewById(R.id.textView7);
-        method = (TextView)findViewById(R.id.textView9);
+        regularCheckValue = (TextView)findViewById(R.id.textViewRegularCheckValue);
+        regularCheckValue.setText("10 sec");
         timerValue = (TextView)findViewById(R.id.textView10);
+
+        manualCheckButton = (Button)findViewById(R.id.buttonManualCheck);
+        regularCheckButton = (Button)findViewById(R.id.buttonRegularCheck);
 
         addNotification(0);
     }
@@ -116,28 +117,6 @@ public class MainActivity extends AppCompatActivity {
         String password = passwordField.getText().toString();
         String serverIP = serverIPField.getText().toString();
 
-        method.setText("Get Method");
-/*
- * try to hide the virtual keyboard
- */
-        View buttonView = this.getCurrentFocus();
-        if (buttonView != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(buttonView.getWindowToken(), 0);
-        }
-
-        new SigninActivity(this,status,role,0).execute(username,password, serverIP);
-
-        addNotification(1);
-
-    }
-
-    public void loginPost(View view){
-        String username = usernameField.getText().toString();
-        String password = passwordField.getText().toString();
-        String serverIP = serverIPField.getText().toString();
-
-        method.setText("Post Method");
  /*
  * try to hide the virtual keyboard
  */
@@ -147,7 +126,35 @@ public class MainActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(buttonView.getWindowToken(), 0);
         }
 
-        new SigninActivity(this,status,role,1).execute(username,password, serverIP);
+        new SigninActivity(this,status,role,manualCheckButton,regularCheckButton,0).execute(username,password, serverIP);
+
+        addNotification(1);
+
+    }
+
+/*
+ * manualCheck to query database for outstanding application data manually
+ */
+    public void manualCheck(View view) {
+        String username = usernameField.getText().toString();
+        String password = passwordField.getText().toString();
+        String serverIP = serverIPField.getText().toString();
+
+ /*
+ * try to hide the virtual keyboard
+ */
+        View buttonView = this.getCurrentFocus();
+        if (buttonView != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(buttonView.getWindowToken(), 0);
+        }
+
+        new SigninActivity(this, status, role, manualCheckButton, regularCheckButton, 1).execute(username, password, serverIP);
+
+    }
+
+    public void regularCheck(View view){
+        Log.d("regularCheckButton", "Button clicked");
 
         startTimer();
         countDownTimer.start();
@@ -158,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
     private void startTimer(){
         Log.d ("startTimer debug", "startTimer is invoked");
         timerValue.setText("3");
-        countDownTimer = new CountDownTimer(5*1000, 1000){
+        countDownTimer = new CountDownTimer(10*1000, 1000){
             @Override
             public void onTick(long millisUntilFinished) {
                 timerValue.setText(""+millisUntilFinished / 1000);

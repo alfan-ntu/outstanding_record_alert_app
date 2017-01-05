@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.apache.http.HttpResponse;
@@ -26,15 +27,19 @@ import java.net.URLEncoder;
 
 public class SigninActivity extends AsyncTask<String, Integer, String> {
     private TextView statusField,roleField;
+    private Button manualCheckButton, regularCheckButton;
     private Context context;
     private int byGetOrPost = 0;
     private Notification messageBuilder;
 
-    //flag 0 means get and 1 means post.(By default it is get.)
-    public SigninActivity(Context context,TextView statusField,TextView roleField,int flag) {
+// flag 0 means get and 1 means post.(By default it is get.)
+    public SigninActivity(Context context, TextView statusField, TextView roleField,
+                          Button manualCheckButton, Button regularCheckButton, int flag) {
         this.context = context;
         this.statusField = statusField;
         this.roleField = roleField;
+        this.manualCheckButton = manualCheckButton;
+        this.regularCheckButton = regularCheckButton;
         byGetOrPost = flag;
     }
 
@@ -134,10 +139,14 @@ public class SigninActivity extends AsyncTask<String, Integer, String> {
             Log.d("SigninActivity", "My role is an administrator");
             this.statusField.setText(R.string.legalLogin);
             this.roleField.setText(R.string.adminRoleDisplay);
+            this.regularCheckButton.setEnabled(true);
+            this.manualCheckButton.setEnabled(true);
         } else if (result.equals(userRoleString)){
             Log.d("SigninActivity", "I am a regular user");
             this.statusField.setText(R.string.legalLogin);
             this.roleField.setText(R.string.userRoleDisplay);
+            this.regularCheckButton.setEnabled(true);
+            this.manualCheckButton.setEnabled(true);
         } else {
             Log.d("SigninActivity", "I am an intruder");
             this.statusField.setText(R.string.Status);
