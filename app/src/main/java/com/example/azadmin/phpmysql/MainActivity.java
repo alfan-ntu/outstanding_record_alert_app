@@ -12,6 +12,8 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 //import android.support.v7.app.NotificationCompat;
 //import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -60,6 +62,26 @@ public class MainActivity extends AppCompatActivity {
         timerValue = (TextView)findViewById(R.id.textView10);
         outstandingRecordNumberTextView = (TextView)findViewById(R.id.textViewOutstandingRecordNumber);
         outstandingRecordNumberTextView.setText("0");
+        outstandingRecordNumberTextView.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {}
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after){}
+
+            public void onTextChanged(CharSequence s, int start, int before, int count){
+                int orn;
+
+                try {
+                    orn = Integer.parseInt(s.toString());
+                    if (orn != 0) {
+                        Toast toast = Toast.makeText(getApplicationContext(), "Watchout! "+s.toString()+" Outstanding Record!!", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                } catch (NumberFormatException e){
+                    System.out.println("could not parse " + e);
+                }
+                Log.d("outstandingRecordNumber", "watch outstanding record number");
+            }
+        });
 
         manualCheckButton = (Button)findViewById(R.id.buttonManualCheck);
         regularCheckButton = (Button)findViewById(R.id.buttonRegularCheck);
@@ -137,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
             role.setText(R.string.Role);
             cancelTimer();
             timerValue.setText(R.string.InitTimeValue);
+            outstandingRecordNumberTextView.setText("0");
         } else {
             new SigninActivity(this, status, role, loginButton, manualCheckButton, regularCheckButton, 0).execute(username, password, serverIP);
         }
@@ -177,8 +200,8 @@ public class MainActivity extends AppCompatActivity {
             public void onFinish() {
                 final int alertDuration = 5;
 
-                Toast toast = Toast.makeText(getApplicationContext(), "Timer is reset", Toast.LENGTH_SHORT);
-                toast.show();
+//                Toast toast = Toast.makeText(getApplicationContext(), "Timer is reset", Toast.LENGTH_SHORT);
+//                toast.show();
 
                 String strAlertDuration, link;
                 strAlertDuration = String.valueOf(alertDuration);

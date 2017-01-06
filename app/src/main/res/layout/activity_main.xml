@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/editText1"
         android:layout_below="@+id/editText1"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPassword" >
     </EditText>
@@ -144,17 +144,6 @@
         android:layout_alignBottom="@+id/editTextServerIP"
         android:layout_alignBaseline="@+id/editTextServerIP" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:ems="10"
-        android:id="@+id/editTextServerIP"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/editText2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
     <TextView
         android:id="@+id/textViewRegularCheckLabel"
         android:layout_width="wrap_content"
@@ -218,5 +207,15 @@
         android:layout_alignLeft="@+id/textView11"
         android:layout_alignStart="@+id/textView11"
         android:textSize="@dimen/textView_font_size" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/editTextServerIP"
+        android:layout_below="@+id/editText2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

@@ -81,9 +81,7 @@ public class manualCheckActivity extends AsyncTask<String, Integer, String> {
 
         try{
             numberOfOutstandingRecord = Integer.parseInt(s);
-            if (numberOfOutstandingRecord > 0){
-                outstandingRecordNumber.setText(String.valueOf(numberOfOutstandingRecord));
-            }
+            outstandingRecordNumber.setText(String.valueOf(numberOfOutstandingRecord));
         } catch (NumberFormatException e){
             System.out.println("could not parse " + e);
         }
