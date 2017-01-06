@@ -64,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textViewRegularCheckLabel"
-        android:layout_below="@+id/buttonRegularCheck"
+        android:layout_below="@+id/textViewPreAlertLabel"
         android:layout_marginTop="20dp"
         android:text="@string/LoginStatus"
         android:textSize="@dimen/textView_font_size" />
@@ -80,7 +80,7 @@
         android:textSize="@dimen/textView_font_size"
         android:layout_centerHorizontal="true"
         android:layout_toRightOf="@+id/textView4"
-        android:layout_marginLeft="80dp" />
+        android:layout_marginLeft="100dp" />
 
     <TextView
         android:id="@+id/textViewRegularCheckValue"
@@ -127,7 +127,7 @@
         android:text="@string/enableRegularCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="15dp"
         android:layout_below="@+id/buttonLogin"
         android:layout_toRightOf="@+id/buttonManualCheck"
         android:layout_marginLeft ="75dp"
@@ -217,5 +217,23 @@
         android:layout_below="@+id/editText2"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="@string/preAlertLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonManualCheck"
+        android:layout_marginTop="20dp"
+        android:layout_alignLeft="@+id/textView5"
+        android:id="@+id/textViewPreAlertLabel"
+        android:textSize="@dimen/textView_font_size"/>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textViewPreAlertLabel"
+        android:layout_alignLeft="@+id/textViewLoginStatus"
+        android:layout_alignStart="@+id/textViewLoginStatus"
+        android:id="@+id/spinnerPreAlertDuration" />
 
 </RelativeLayout>
