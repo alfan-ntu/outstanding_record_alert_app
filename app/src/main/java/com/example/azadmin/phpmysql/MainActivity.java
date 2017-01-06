@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     if (orn != 0) {
                         Toast toast = Toast.makeText(getApplicationContext(), "Watchout! "+s.toString()+" Outstanding Record!!", Toast.LENGTH_SHORT);
                         toast.show();
+                        addNotification(1);
                     }
                 } catch (NumberFormatException e){
                     System.out.println("could not parse " + e);
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         regularCheckButton = (Button)findViewById(R.id.buttonRegularCheck);
         loginButton = (Button)findViewById(R.id.buttonLogin);
 
-        addNotification(0);
+ //       addNotification(0);
     }
 
     private void addNotification(int notificationID){
@@ -95,10 +96,12 @@ public class MainActivity extends AppCompatActivity {
 //  Create a Notification object
 //
 
+        Log.d("addNotification","Adopted new icon");
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setAutoCancel(true)
-                        .setSmallIcon(R.drawable.app_icon);
+                        .setSmallIcon(R.drawable.ic_warning_black_24dp);
+//                        .setSmallIcon(R.drawable.app_icon);
 //                        .setContentTitle("mydb armed")
 //                        .setContentText("Info : periodic check is activated!");
 //                        .setContentText("Info : periodic check is activated!");
@@ -142,6 +145,8 @@ public class MainActivity extends AppCompatActivity {
         String password = passwordField.getText().toString();
         String serverIP = serverIPField.getText().toString();
 
+        addNotification(0);
+
  /*
  * try to hide the virtual keyboard
  */
@@ -163,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             new SigninActivity(this, status, role, loginButton, manualCheckButton, regularCheckButton, 0).execute(username, password, serverIP);
         }
-        addNotification(1);
+
 
     }
 
